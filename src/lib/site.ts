@@ -9,8 +9,8 @@ export const site = {
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "http://localhost:3000")
   ).replace(/\/$/, ""),
-  phone: process.env.NEXT_PUBLIC_PHONE ?? "+90 000 000 00 00", // TODO
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "900000000000", // TODO: digits only, with country code
+  phone: process.env.NEXT_PUBLIC_PHONE ?? "+90 537 780 90 23",
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "905377809023", // digits only, with country code
   email: process.env.NEXT_PUBLIC_EMAIL ?? "info@example.com", // TODO
   address: {
     street: "TODO street address",
