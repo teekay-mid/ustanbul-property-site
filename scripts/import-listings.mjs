@@ -21,7 +21,7 @@ const slugify = (s) =>
 
 function category(type = "") {
   const t = type.toLowerCase();
-  if (t.includes("villa")) return "villa";
+  if (t.includes("villa") || t.includes("house")) return "villa";
   if (t.includes("luxury")) return "luxury";
   if (/office|commercial|store|shop/.test(t)) return "commercial";
   return "apartment";
@@ -35,14 +35,21 @@ function status(s = "") {
 }
 
 const lines = readFileSync("data/propertyustanbul.jsonl", "utf8").split("\n").filter(Boolean);
-const listings = lines.map((line, i) => {
-  const r = JSON.parse(line);
+const records = lines.map((line) => JSON.parse(line));
+const bySlug = new Map(records.map((r) => [r.slug, r]));
+// Units in the same project share one description: "descriptionFrom": "<slug>".
+for (const r of records) if (r.descriptionFrom) r.description = bySlug.get(r.descriptionFrom).description;
+
+// Text pasted from PDFs into WordPress contains ligature characters.
+const clean = (s) => s?.replace(/Ɵ/g, "ti").replace(/Ō/g, "ft").replace(/ﬁ/g, "fi").replace(/ﬂ/g, "fl");
+
+const listings = records.map((r, i) => {
   const text = `${r.description ?? ""} ${(r.features ?? []).join(" ")}`;
   return {
     slug: r.slug,
     source: `${SOURCE}${r.slug}/`,
     title: { en: titleCase(r.title) },
-    description: { en: r.description ?? "" },
+    description: { en: clean(r.description) ?? "" },
     status: status(r.status),
     category: category(r.type),
     district: r.district ? slugify(r.district) : "istanbul",
