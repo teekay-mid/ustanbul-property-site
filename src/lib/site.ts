@@ -11,19 +11,21 @@ export const site = {
   ).replace(/\/$/, ""),
   phone: process.env.NEXT_PUBLIC_PHONE ?? "+90 537 780 90 23",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "905377809023", // digits only, with country code
-  email: process.env.NEXT_PUBLIC_EMAIL ?? "info@example.com", // TODO
+  email: process.env.NEXT_PUBLIC_EMAIL ?? "info@propertyustanbul.com",
   address: {
-    street: "TODO street address",
-    locality: "Istanbul",
-    region: "Istanbul",
-    postalCode: "34000",
+    street: "Göktürk Merkez Mah., Neo Vista Sitesi, İstanbul Cad. No:16",
+    locality: "Eyüpsultan",
+    region: "İstanbul",
+    postalCode: "34077",
     country: "TR",
   },
-  geo: { latitude: 41.0082, longitude: 28.9784 }, // TODO: office coordinates
+  geo: { latitude: 41.1817, longitude: 28.8874 }, // approximate (Göktürk); confirm exact office pin
   openingHours: ["Mo-Sa 09:00-19:00"], // TODO
+  legalName: "Ustanbul Property Gayrimenkul Danışmanlığı Limited Şirketi",
   sameAs: [
     "https://www.instagram.com/ustanbulproperty/",
-    "https://ustanbulproperty.sahibinden.com/",
+    "https://www.facebook.com/share/15qpoD3q9L/",
+    "https://www.youtube.com/@ustanbulproperty",
   ],
 };
 

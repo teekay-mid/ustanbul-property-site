@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { districts } from "@/lib/districts";
 import { locales, localeTags } from "@/lib/i18n";
-import { listings } from "@/lib/listings";
+import { categories, listings, listingsByCategory } from "@/lib/listings";
 import { absoluteUrl } from "@/lib/site";
 
 function entry(path: string, priority: number, lastModified?: string): MetadataRoute.Sitemap {
@@ -25,8 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...entry("/about", 0.5),
     ...entry("/contact", 0.6),
     ...districts.flatMap((d) => entry(`/districts/${d.slug}`, 0.8)),
-    ...listings
-      .filter((l) => !l.sample)
-      .flatMap((l) => entry(`/properties/${l.slug}`, 0.7, l.updatedAt)),
+    ...categories.flatMap((c) => (listingsByCategory(c).length ? entry(`/buy/${c}`, 0.8) : [])),
+    ...listings.flatMap((l) => entry(`/properties/${l.slug}`, 0.7)),
   ];
 }

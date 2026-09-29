@@ -49,11 +49,15 @@ Mark `generate_lead`, `whatsapp_click` and `phone_click` as key events in GA4. M
 
 ## Content to replace before launch
 
-- `src/lib/site.ts`: address, phone, WhatsApp, email, office coordinates, opening hours (marked `TODO`).
-- `src/lib/listings.ts`: the four listings are samples (`sample: true`, shown with a banner and `noindex`). Replace with the real listings from the sahibinden store and add photos under `public/`.
+- `src/lib/site.ts`: exact office map pin and opening hours (marked `TODO`).
+- Import the rest of the listings from propertyustanbul.com (see below).
 - `src/lib/districts.ts`: expand each district summary into a full area guide.
 - Privacy policy text (KVKK and GDPR) from the client or their lawyer.
 - Turkish, Arabic and Russian copy should be reviewed by a native speaker.
+
+## Listings
+
+Listings come from the current site, propertyustanbul.com. Each one is a line in `data/propertyustanbul.jsonl`; run `npm run import:listings` to rebuild `src/data/listings.json`, which the site reads. Photos are loaded from propertyustanbul.com for now (allowed in `next.config.ts`) and should be copied into this project before the old site is switched off.
 
 ## SEO already in place
 

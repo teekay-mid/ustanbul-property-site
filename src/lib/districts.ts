@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n";
+import { listings } from "@/lib/listings";
 
 type Localized = Record<Locale, string>;
 
@@ -6,12 +7,12 @@ export type District = {
   slug: string;
   name: Localized;
   side: "european" | "asian";
-  summary: Localized;
+  summary: Localized | null;
 };
 
 // District guides are a core SEO asset. Expand each summary into a full
 // guide (transport, schools, prices, lifestyle) as content is written.
-export const districts: District[] = [
+const guides: District[] = [
   {
     slug: "besiktas",
     name: { en: "Beşiktaş", tr: "Beşiktaş", ar: "بشكتاش", ru: "Бешикташ" },
@@ -78,7 +79,32 @@ export const districts: District[] = [
       ru: "Доступная жизнь у моря: современные квартиры, марины, линия Метробуса и невысокий порог входа для инвесторов.",
     },
   },
+  {
+    slug: "kagithane",
+    name: { en: "Kağıthane", tr: "Kağıthane", ar: "كاغيت هانة", ru: "Кягытхане" },
+    side: "european",
+    summary: {
+      en: "A fast-changing central district next to Şişli and Levent, with new residential projects, the Kağıthane–Gayrettepe metro and quick access to the business districts.",
+      tr: "Şişli ve Levent'e komşu, yeni konut projeleri, Kağıthane–Gayrettepe metrosu ve iş merkezlerine hızlı erişimiyle hızla dönüşen merkezi bir ilçe.",
+      ar: "حي مركزي سريع التحول بجوار شيشلي وليفنت، يضم مشاريع سكنية جديدة ومترو كاغيت هانة–غايرتبه ووصولاً سريعاً إلى مراكز الأعمال.",
+      ru: "Быстро меняющийся центральный район рядом с Шишли и Левентом: новые жилые проекты, метро Кягытхане–Гайреттепе и быстрый доступ к деловым центрам.",
+    },
+  },
 ];
+
+// A district page exists for every district that has at least one listing.
+// Districts with a written guide get localized names and a summary.
+export const districts: District[] = Array.from(
+  new Map(listings.map((l) => [l.district, l.districtName])).entries(),
+).map(
+  ([slug, name]) =>
+    guides.find((g) => g.slug === slug) ?? {
+      slug,
+      name: { en: name, tr: name, ar: name, ru: name },
+      side: "european",
+      summary: null,
+    },
+);
 
 export function getDistrict(slug: string) {
   return districts.find((d) => d.slug === slug);

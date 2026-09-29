@@ -1,35 +1,34 @@
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
-import type { Listing } from "@/lib/listings";
+import { text, type Listing } from "@/lib/listings";
 
-// Shows the first photo, or a neutral placeholder until real photos exist.
 export function ListingImage({
   listing,
   locale,
+  index = 0,
   className = "",
   priority = false,
+  sizes = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
 }: {
   listing: Listing;
   locale: Locale;
+  index?: number;
   className?: string;
   priority?: boolean;
+  sizes?: string;
 }) {
-  const src = listing.images[0];
+  const src = listing.images[index];
   return (
     <div className={`relative overflow-hidden bg-gradient-to-br from-navy to-[#2d4a73] ${className}`}>
-      {src ? (
+      {src && (
         <Image
           src={src}
-          alt={listing.title[locale]}
+          alt={`${text(listing.title, locale)}${index ? ` (${index + 1})` : ""}`}
           fill
           priority={priority}
-          sizes="(min-width: 1024px) 33vw, 100vw"
+          sizes={sizes}
           className="object-cover"
         />
-      ) : (
-        <div className="absolute inset-0 flex items-center justify-center text-5xl font-semibold text-white/20">
-          {listing.rooms}
-        </div>
       )}
     </div>
   );

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ListingCard } from "@/components/ListingCard";
 import { getDictionary } from "@/lib/dictionaries";
@@ -16,12 +17,17 @@ export async function generateMetadata({ params }: PageProps<"/[lang]">) {
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const lang = (await params).lang as Locale;
   const t = getDictionary(lang);
-  const featured = listings.filter((l) => l.featured && l.status !== "sold").slice(0, 3);
+  const available = listings.filter((l) => l.status !== "sold");
+  const featured = [...available.filter((l) => l.featured), ...available.filter((l) => !l.featured)].slice(0, 6);
+  const hero = featured.find((l) => l.images.length)?.images[0];
 
   return (
     <>
-      <section className="bg-navy text-white">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+      <section className="relative isolate overflow-hidden bg-navy text-white">
+        {hero && (
+          <Image src={hero} alt="" fill priority sizes="100vw" className="-z-10 object-cover opacity-35" />
+        )}
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:py-32">
           <h1 className="max-w-2xl text-4xl font-semibold leading-tight sm:text-5xl">{t.home.heroTitle}</h1>
           <p className="mt-5 max-w-2xl text-lg text-white/80">{t.home.heroText}</p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -64,7 +70,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               className="rounded-xl border border-stone-200 bg-white p-5 hover:shadow-md"
             >
               <h3 className="font-semibold text-navy">{d.name[lang]}</h3>
-              <p className="mt-2 text-sm text-stone-600">{d.summary[lang]}</p>
+              {d.summary && <p className="mt-2 text-sm text-stone-600">{d.summary[lang]}</p>}
             </Link>
           ))}
         </div>

@@ -41,6 +41,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
     "@type": "RealEstateAgent",
     "@id": absoluteUrl("/#organization"),
     name: site.name,
+    legalName: site.legalName,
     url: absoluteUrl(`/${lang}`),
     telephone: site.phone,
     email: site.email,
