@@ -5,10 +5,13 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 const SOURCE = "https://propertyustanbul.com/property/";
 
+// Turkish casing only for words with Turkish letters, so "RESIDENCE" doesn't become "Resıdence".
 const titleCase = (s) =>
-  s
-    .toLocaleLowerCase("tr")
-    .replace(/(^|[\s\-/(])(\p{L})/gu, (_, sep, ch) => sep + ch.toLocaleUpperCase("tr"));
+  s.replace(/\p{L}+/gu, (word) => {
+    const locale = /[İıŞşĞğÇçÖöÜü]/.test(word) ? "tr" : "en";
+    const lower = word.toLocaleLowerCase(locale);
+    return lower.charAt(0).toLocaleUpperCase(locale) + lower.slice(1);
+  });
 
 const slugify = (s) =>
   s
