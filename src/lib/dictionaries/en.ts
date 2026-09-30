@@ -87,7 +87,7 @@ const en = {
   citizenship: {
     heading: "Turkish citizenship by property investment",
     intro:
-      "Foreign nationals can apply for Turkish citizenship by buying property in Turkey above the government's minimum investment and keeping it for at least three years. Many of our listings qualify.",
+      "Foreign nationals can apply for Turkish citizenship by buying property in Turkey worth at least USD 400,000 and keeping it for at least three years. Many of our listings qualify.",
     stepsTitle: "How the process works",
     steps: [
       "Choose a qualifying property and agree the price.",

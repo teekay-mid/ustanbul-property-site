@@ -89,7 +89,7 @@ const tr: Dictionary = {
   citizenship: {
     heading: "Gayrimenkul yatırımı ile Türk vatandaşlığı",
     intro:
-      "Yabancı uyruklu kişiler, devletin belirlediği asgari tutarın üzerinde gayrimenkul satın alıp en az üç yıl elde tutarak Türk vatandaşlığına başvurabilir. İlanlarımızın birçoğu bu şartı karşılıyor.",
+      "Yabancı uyruklu kişiler, en az 400.000 ABD doları değerinde gayrimenkul satın alıp en az üç yıl elde tutarak Türk vatandaşlığına başvurabilir. İlanlarımızın birçoğu bu şartı karşılıyor.",
     stepsTitle: "Süreç nasıl işler",
     steps: [
       "Uygun bir gayrimenkul seçin ve fiyatta anlaşın.",
